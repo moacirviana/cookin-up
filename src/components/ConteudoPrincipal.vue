@@ -6,17 +6,26 @@ import SuaLista from './SuaLista.vue';
 export default {
   data() {
         return {
-            ingredientes: ['Alhox', 'Manteigax', 'Oréganox']
+            ingredientes: [] as string[]
         };
     },
-    components: { SelecionarIngredientes, Tag, SuaLista }
+    components: { SelecionarIngredientes, Tag, SuaLista },
+    methods:{
+      adicionarIngrediente(ingrediente: string){
+        this.ingredientes.push(ingrediente)
+      }
+        ,
+        removeIngrediente : function (ingrediente: string) {
+          this.ingredientes = this.ingredientes.filter(iLista => ingrediente !== iLista);
+        }
+    }
 }
 </script>
 
 <template>
   <main class="conteudo-principal">
     <SuaLista :ingredientes="ingredientes"/>
-    <SelecionarIngredientes />
+    <SelecionarIngredientes @adicionar-ingrediente="adicionarIngrediente" @remover-ingrediente="removeIngrediente" />
   </main>
 </template>
 
