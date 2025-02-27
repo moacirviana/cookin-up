@@ -1,3 +1,20 @@
+<template>
+  <main class="conteudo-principal">
+    <SuaLista :ingredientes="ingredientes"/>
+    <KeepAlive include="SelecionarIngredientes">
+        <SelecionarIngredientes @adicionar-ingrediente="adicionarIngrediente" 
+                                @remover-ingrediente="removeIngrediente" 
+                                @buscar-receitas="navegar('MostrarReceitas')"
+                                v-if="conteudo === 'SelecionarIngredientes'"/>
+        <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'"
+                  @editar-receitas="navegar('SelecionarIngredientes')"
+                  :ingredientes="ingredientes"
+                  />
+  </KeepAlive>
+  </main>
+</template>
+
+
 <script lang="ts">
 import MostrarReceitas from './MostrarReceitas.vue';
 import SelecionarIngredientes from './SelecionarIngredientes.vue';
@@ -27,17 +44,6 @@ export default {
     }
 }
 </script>
-
-<template>
-  <main class="conteudo-principal">
-    <SuaLista :ingredientes="ingredientes"/>
-    <SelecionarIngredientes @adicionar-ingrediente="adicionarIngrediente" 
-                            @remover-ingrediente="removeIngrediente" 
-                            @buscar-receitas="navegar('MostrarReceitas')"
-                            v-if="conteudo === 'SelecionarIngredientes'"/>
-    <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'"/>
-  </main>
-</template>
 
 <style scoped>
 .conteudo-principal {

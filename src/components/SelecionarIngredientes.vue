@@ -1,23 +1,3 @@
-<script lang="ts">
-import { obterCategorias } from '@/http/index';
-import type ICategoria from '@/interfaces/ICategoria';
-import CardCategoria from './CardCategoria.vue';
-import BotaoPrincipal from './BotaoPrincipal.vue';
-
-export default {
-  data() {
-    return {
-      categorias: [] as ICategoria[]
-    }
-  },
-  async created() {
-    this.categorias = await obterCategorias();
-  },
-  components: { CardCategoria, BotaoPrincipal },
-  emits:['adicionarIngrediente','removerIngrediente','buscarReceitas']
-}
-</script>
-
 <template>
   <section class="selecionar-ingredientes">
     <h1 class="cabecalho titulo-ingredientes">Ingredientes</h1>
@@ -42,6 +22,27 @@ export default {
     <BotaoPrincipal texto="Buscar receitas!" @click="$emit('buscarReceitas')"/>
   </section>
 </template>
+
+<script lang="ts">
+import { obterCategorias } from '@/http/index';
+import type ICategoria from '@/interfaces/ICategoria';
+import CardCategoria from './CardCategoria.vue';
+import BotaoPrincipal from './BotaoPrincipal.vue';
+
+export default {
+  name:"SelecionarIngredientes",
+  data() {
+    return {
+      categorias: [] as ICategoria[]
+    }
+  },
+  async created() {
+    this.categorias = await obterCategorias();
+  },
+  components: { CardCategoria, BotaoPrincipal },
+  emits:['adicionarIngrediente','removerIngrediente','buscarReceitas']
+}
+</script>
 
 <style scoped>
 .selecionar-ingredientes {
